@@ -1,16 +1,21 @@
 import React from 'react';
 import './App.css';
 import Login from './Login';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route , Switch} from 'react-router-dom';
 import Dashboard from './Dashboard';
+import { ProtectedRoute } from './ProtectedRoute'
 
 function App() {
   return (
     <div className="App">
       {/* <Dashboard /> */}
       <BrowserRouter>
-        <Route path="/" component={Login} />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <ProtectedRoute  path="/dashboard" component={Dashboard}  />
+        </Switch>
       </BrowserRouter>
+      
     </div>
   );
 }

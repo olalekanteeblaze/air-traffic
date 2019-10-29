@@ -1,6 +1,26 @@
 .form-group{
-    border: 1px dashed black;
+    border: 1px dashed rgb(0, 0, 0);
     padding: 50px 20px 50px 20px;
     width: 500px;
     margin: 100px auto 0px auto
+}
+.modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: white;
+    opacity: 0.7; */
+}
+.paper{
+    background-color: white;
+    position: absolute;
+    border: 2px solid #000;
+    opacity: 0.2;
+    width: 400px;
+    height: 500px;
+    margin: 45% 100px 100px 400px;
+    overflow: scroll;
+}
+.form{
+    width: 400px;
 }

@@ -1,19 +1,30 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
+import { withRouter } from 'react-router-dom';
 import './dashboard.css'
 
-class Login extends Component{
-    render(){
+function Login(props){
+    const [state, changeState] = useState({
+                                    name: '',
+                                    password: ""
+    })
+    const onFormSubmit = (e) => {
+        e.preventDefault()
+        if(state.name ==="demo" || state.password === "demo"){
+            props.history.push("/dashboard")
+        }
+        
+    }
         return(
-            <div className="form-group">
+            <div className="form-group" onSubmit={onFormSubmit}>
                 <form>
                     <FormGroup>
                         <TextField
                             id="outlined-name"
                             label="Name"
-                            // onChange={handleChange('name')}
+                            onChange={e => changeState({ name: e.target.value})}
                             margin="normal"
                             variant="outlined"
                         />
@@ -22,7 +33,7 @@ class Login extends Component{
                             id="outlined-password-input"
                             label="Password"
                             type="password"
-                            // onChange={handleChange('name')}
+                            onChange={e => changeState({ password: e.target.value})}
                             margin="normal"
                             variant="outlined"
                         />
@@ -34,6 +45,5 @@ class Login extends Component{
                 </form>
             </div>
         )
-    }
 }
-export default Login;
+export default withRouter(Login);
