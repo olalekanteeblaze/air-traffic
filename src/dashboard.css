@@ -1,0 +1,6 @@
+.form-group{
+    border: 1px dashed black;
+    padding: 50px 20px 50px 20px;
+    width: 500px;
+    margin: 100px auto 0px auto
+}
