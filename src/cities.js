@@ -13,7 +13,7 @@ export const cities = [
     {
         city: 'New York',
         image: NewYork,
-        icao: '0NY6'
+        icao: 'KJRB'
     },
     {
         city: 'Amsterdam',

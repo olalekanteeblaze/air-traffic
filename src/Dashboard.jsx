@@ -11,7 +11,7 @@ import ModalComponent from './ModalComponent';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
-import { Menu, FormControl, InputLabel, MenuItem, Select} from '@material-ui/core';
+import { Menu, FormControl, InputLabel, MenuItem, Select, Grid, Paper} from '@material-ui/core';
 import './dashboard.css'
 
 class Dashboard extends Component{
@@ -65,21 +65,31 @@ class Dashboard extends Component{
                             value={10}
                             // onChange={handleChange}
                             >
-                            <MenuItem value={10}>10 minutes ago</MenuItem>
-                            <MenuItem value={30}>30 minutes ago</MenuItem>
-                            <MenuItem value={60}>2 hours ago</MenuItem>
+                            <MenuItem value={10}>2 hours ago</MenuItem>
+                            <MenuItem value={30}>12 hours ago</MenuItem>
+                            <MenuItem value={60}>24 hours ago</MenuItem>
                             </Select>
                         </FormControl>
                             <div>
-                                {this.props.arrival.map(flight => 
-                                    <div>{flight.callsign}</div>
-                                )}
+                                {this.props.loading ? 
+                                    <h3>Loading...</h3> :
+                                    <Grid>
+                                    {this.props.arrival.map(flight => 
+                                        <Grid>
+                                            <Paper>
+                                                <div>{flight.callsign}</div>
+                                            </Paper>
+                                        </Grid>
+                                    )}
+                                </Grid>
+                                }
+                                
                             </div>
                         </div>
                     </Fade>
                 </Modal>
                 </GridList>
-                
+                {this.props.err? <div> Unable to get Air traffic for sprcified period</div>: <div></div>}
             </div>
         )
     }
@@ -90,6 +100,8 @@ function mapStateToProps(state){
         open: state.modal.open,
         display: state.modal.display,
         arrival: state.modal.arrival,
+        loading: state.modal.loading,
+        err: state.modal.err,
     }
 }
 function mapDispatchToProps(dispatch){

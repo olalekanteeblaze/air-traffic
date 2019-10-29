@@ -20,7 +20,8 @@
     height: 500px;
     margin: 45% 100px 100px 400px;
     overflow: scroll;
+    text-align: center;
 }
 .form{
-    width: 400px;
+    width: 350px;
 }

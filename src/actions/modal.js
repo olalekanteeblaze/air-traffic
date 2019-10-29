@@ -2,7 +2,7 @@ import * as ActionTypes from '../constant';
 import Axios from 'axios';
 
 const end = Math.round((new Date()).getTime() / 1000);
-const begin = end - (60 * 10* 100)
+const begin = end - (60 * 10* 600)
 console.log(begin, end)
 export const openModal = () => {
     return {
@@ -21,7 +21,14 @@ export const closeModal = () => {
 const initialFlights = (flights) => {
     return {
         type: ActionTypes.GET_INITIAL_FLIGHTS,
-        arrival: flights
+        arrival: flights,
+        loading: true,
+    }
+}
+export const stopLoading = () => {
+    return{
+        type: ActionTypes.STOP_LOADING,
+        loading: false,
     }
 }
 export const getInitialFlights = (icao) => {
@@ -31,7 +38,8 @@ export const getInitialFlights = (icao) => {
             dispatch(initialFlights(res.data))
             console.log(res)
         })
-        .catch( err => console.log(err))
+        .catch( err => dispatch(handleError()))
+        .finally( dispatch(stopLoading))
     }
 }
 export const changeTime = (time) => {
@@ -39,4 +47,11 @@ export const changeTime = (time) => {
         type: ActionTypes.CHANGE_TIME,
         end: time
     }
+}
+export const handleError = () => {
+    return{
+        type: ActionTypes.HANDLE_ERROR,
+        err: true
+    }
+    
 }
