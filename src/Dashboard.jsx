@@ -11,20 +11,34 @@ import ModalComponent from './ModalComponent';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
-import { Menu, FormControl, InputLabel, MenuItem, Select, Grid, Paper} from '@material-ui/core';
+import { Menu, FormControl, InputLabel, MenuItem, Select, Grid, Paper, CircularProgress } from '@material-ui/core';
 import './dashboard.css'
 
 class Dashboard extends Component{
     constructor(props){
         super(props)
         this.openModal = this.openModal.bind(this)
+        this.changeTime = this.changeTime.bind(this)
     }
-    componentWillMount(){
-        this.props.getInitialFlights()
+    // componentWillMount(){
+    //     this.props.getInitialFlights()
+    // }
+    componentWillReceiveProps(nextProps){
+        const end = Math.round((new Date()).getTime() / 1000);
+        if(nextProps.begin !== this.props.begin){
+            console.log(nextProps.begin)
+            this.props.getInitialFlights(nextProps.city, end - nextProps.begin)
+        }
     }
     openModal(city){
+        const end = Math.round((new Date()).getTime() / 1000);
         this.props.openModal()
-        this.props.getInitialFlights(city.icao)
+        this.props.changeCity(city.icao)
+        this.props.getInitialFlights(city.icao, end - this.props.begin)
+        
+    }
+    changeTime(e){
+        this.props.changeTime(e.target.value)
     }
     render(){
         return(
@@ -59,28 +73,31 @@ class Dashboard extends Component{
                         <FormControl className="form">
                             <InputLabel id="demo-simple-select-label">Select time range to filter arrivals and departure</InputLabel>
                             <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            autoWidth={false}
-                            value={10}
-                            // onChange={handleChange}
-                            >
-                            <MenuItem value={10}>2 hours ago</MenuItem>
-                            <MenuItem value={30}>12 hours ago</MenuItem>
-                            <MenuItem value={60}>24 hours ago</MenuItem>
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                autoWidth={false}
+                                defaultValue={3600 * 24}
+                                onChange={this.changeTime}
+                                >
+                                <MenuItem value={3600 * 24}>1 day ago</MenuItem>
+                                <MenuItem value={3600 * 72}>3 days ago</MenuItem>
+                                <MenuItem value={3600 * 120}>5 days ago</MenuItem>
                             </Select>
                         </FormControl>
-                            <div>
+                            <div className="grid">
                                 {this.props.loading ? 
-                                    <h3>Loading...</h3> :
+                                    <CircularProgress /> :
+                                    
                                     <Grid>
+                                    {this.props.err ? <div> No flight recorded for specified period</div>: <div></div>}
                                     {this.props.arrival.map(flight => 
                                         <Grid>
                                             <Paper>
-                                                <div>{flight.callsign}</div>
+                                                <div className="grid-list">{flight.icao24}</div>
                                             </Paper>
                                         </Grid>
                                     )}
+                                    {/* {this.props.err ? <div> Unable to get Air traffic for sprcified period</div>: <div></div>} */}
                                 </Grid>
                                 }
                                 
@@ -89,7 +106,6 @@ class Dashboard extends Component{
                     </Fade>
                 </Modal>
                 </GridList>
-                {this.props.err? <div> Unable to get Air traffic for sprcified period</div>: <div></div>}
             </div>
         )
     }
@@ -102,6 +118,8 @@ function mapStateToProps(state){
         arrival: state.modal.arrival,
         loading: state.modal.loading,
         err: state.modal.err,
+        begin: state.modal.begin ,
+        city: state.modal.city,
     }
 }
 function mapDispatchToProps(dispatch){

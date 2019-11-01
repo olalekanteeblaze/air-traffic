@@ -1,14 +1,11 @@
 import { combineReducers } from 'redux';
 import modal from './reducers/modal';
-// import department from './modules/reducers/departments';
-// import product from './modules/reducers/products';
-// import { reducer as form } from 'redux-form';
+import login from './reducers/auth';
 
 const rootReducer = combineReducers({
     modal,
-    // category,
-    // department,
-    // product,
+    login,
+
 })
 
 export default rootReducer;

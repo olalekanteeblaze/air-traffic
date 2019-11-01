@@ -28,7 +28,7 @@ export const cities = [
     {
         city: 'Atlanta',
         image: Atlanta,
-        icao: '55H'
+        icao: 'EDFF'
     },
     {
         city: 'Paris',
@@ -51,9 +51,9 @@ export const cities = [
         icao: 'EGCC'
     },
     {
-        city: 'Lagos',
+        city: 'Barcelona',
         image: Lagos,
-        icao: 'DMNN'
+        icao: 'LEBL'
     },
     {
         city: 'Johannesburg',

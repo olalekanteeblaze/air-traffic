@@ -8,20 +8,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px;
     /* background: white;
     opacity: 0.7; */
 }
 .paper{
-    background-color: white;
+    background: rgba(255, 255, 255,0.8);
     position: absolute;
-    border: 2px solid #000;
-    opacity: 0.2;
+    opacity: 0.8;
     width: 400px;
     height: 500px;
+    padding: 10px;
     margin: 45% 100px 100px 400px;
-    overflow: scroll;
-    text-align: center;
+    overflow-y: scroll;
 }
 .form{
     width: 350px;
+    margin: 20px;
+}
+.grid{
+   margin: 20px;
+   text-align: center;
+}
+.grid-list{
+    margin: 20px;
 }
