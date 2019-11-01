@@ -19,7 +19,8 @@
     width: 400px;
     height: 500px;
     padding: 10px;
-    margin: 45% 100px 100px 400px;
+    margin: 0% 100px 100px 00px;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 .form{
@@ -31,5 +32,8 @@
    text-align: center;
 }
 .grid-list{
+    margin: 20px;
+}
+.grid-container{
     margin: 20px;
 }

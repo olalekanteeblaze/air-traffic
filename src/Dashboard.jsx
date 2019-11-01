@@ -7,11 +7,10 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as modalActions from './actions/modal';
-import ModalComponent from './ModalComponent';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
-import { Menu, FormControl, InputLabel, MenuItem, Select, Grid, Paper, CircularProgress } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, Grid, Paper, CircularProgress } from '@material-ui/core';
 import './dashboard.css'
 
 class Dashboard extends Component{
@@ -26,7 +25,6 @@ class Dashboard extends Component{
     componentWillReceiveProps(nextProps){
         const end = Math.round((new Date()).getTime() / 1000);
         if(nextProps.begin !== this.props.begin){
-            console.log(nextProps.begin)
             this.props.getInitialFlights(nextProps.city, end - nextProps.begin)
         }
     }
@@ -43,7 +41,7 @@ class Dashboard extends Component{
     render(){
         return(
             <div>
-                <GridList cellHeight={180} cols={3} >
+                <GridList cellHeight={180} cols={3} className="grid-container">
                     <GridListTile cols={3} style={{ height: 'auto'}}>
                         <ListSubheader component="div">Check flights for cities</ListSubheader>
                     </GridListTile>
@@ -55,6 +53,7 @@ class Dashboard extends Component{
                             />
                         </GridListTile>
                 )}
+                </GridList>
                 <Modal 
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
@@ -105,13 +104,11 @@ class Dashboard extends Component{
                         </div>
                     </Fade>
                 </Modal>
-                </GridList>
             </div>
         )
     }
 }
 function mapStateToProps(state){
-    console.log(state)
     return{
         open: state.modal.open,
         display: state.modal.display,

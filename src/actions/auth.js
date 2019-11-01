@@ -15,12 +15,15 @@ export const changePassword = (password) => {
 
 export const signInUser = (username, password) => {
     let auth = false
+    let loginErr = true
     if(username === 'demo' && password === 'demo'){
         auth = true
+        loginErr = false
     }
     console.log(username, password)
     return {
         type: ActionTypes.AUTH_USER,
-        auth
+        auth,
+        loginErr
     }
 }

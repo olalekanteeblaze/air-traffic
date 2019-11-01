@@ -67,6 +67,7 @@ class Login extends Component{
                         </Button>
                     </FormGroup>
                 </form>
+                {this.props.loginErr ? <div style={{ color: 'red'}}>Incorrect Username or Password</div>: <div></div>}
             </div>
         )
     }
@@ -77,7 +78,8 @@ function mapStateToProps(state){
     return {
         auth: state.login.auth,
         name: state.login.name,
-        password: state.login.password
+        password: state.login.password,
+        loginErr: state.login.loginErr
     }
 }
 function mapDispatchToProps(dispatch){
